@@ -68,7 +68,6 @@ export default function Login() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log("handleSubmit");
 
     const payload = {
       email: loginDetails.email,

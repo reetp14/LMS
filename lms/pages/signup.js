@@ -40,6 +40,58 @@ const useStyle = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyle();
+
+  const [signDetails, setSignDetails] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  function handleChange(event) {
+    console.log(event.target.name);
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    setSignDetails({ ...signDetails, [name]: value });
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const payload = {
+      firstName: signDetails.firstName,
+      lastName: signDetails.lastName,
+      email: signDetails.email,
+      password: signDetails.password,
+    };
+    console.log(payload);
+    const body = await signReq("http://localhost:80/app/createEmp", payload);
+    setSignDetails({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
+  }
+
+  async function signReq(url = "", payload) {
+    // console.log(JSON.stringify(payload));
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+
+      body: JSON.stringify(payload),
+    });
+    var body = await response.json();
+
+    return body;
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline>
@@ -57,17 +109,18 @@ export default function SignUp() {
               color="primary"
             ></AccountCircleIcon>
             <Typography variant="h6">Sign Up</Typography>
+
             <TextField
               className={classes.textfield}
               margin="normal"
               required
               fullWidth
-              id="name"
-              label="Name"
-              name="name"
-              // value={loginDetails.emailId}
-              // onChange={handleChange}
-              autoComplete="name"
+              id="firstName"
+              label="First Name"
+              name="firstName"
+              value={signDetails.firstName}
+              onChange={handleChange}
+              autoComplete="FirstName"
               autoFocus
             />
             <TextField
@@ -75,11 +128,24 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
-              id="emailId"
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              value={signDetails.lastName}
+              onChange={handleChange}
+              autoComplete="lastName"
+              autoFocus
+            />
+            <TextField
+              className={classes.textfield}
+              margin="normal"
+              required
+              fullWidth
+              id="email"
               label="Email Address"
-              name="emailId"
-              // value={loginDetails.emailId}
-              // onChange={handleChange}
+              name="email"
+              value={signDetails.email}
+              onChange={handleChange}
               autoComplete="email"
               autoFocus
             />
@@ -92,13 +158,18 @@ export default function SignUp() {
               type="password"
               label="Password"
               name="password"
-              // value={loginDetails.emailId}
-              // onChange={handleChange}
+              value={signDetails.password}
+              onChange={handleChange}
               autoComplete="password"
               autoFocus
             />
           </div>
-          <Button style={{ position: "relative", left: "210px" }}>Next</Button>
+          <Button
+            style={{ position: "relative", left: "210px" }}
+            onClick={handleSubmit}
+          >
+            Next
+          </Button>
         </Paper>
       </CssBaseline>
     </div>
