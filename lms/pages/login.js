@@ -76,7 +76,10 @@ export default function Login() {
     console.log(payload);
     const body = await loginReq("http://localhost:80/app/auth", payload);
     if (body.auth === true) {
-      router.push("/dashboard");
+      console.log("sucess");
+      sessionStorage.setItem("id", body.eID);
+      console.log("id is", sessionStorage.getItem("id"));
+      //   router.push("/dashboard");
     } else {
       setAlertToggle({
         state: true,

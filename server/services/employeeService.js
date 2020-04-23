@@ -32,6 +32,7 @@ module.exports = {
         console.log(uid);
         return {
           auth: true,
+          eID: uid.id,
         };
       } else {
         console.log(uid);
@@ -46,4 +47,8 @@ module.exports = {
       return error;
     }
   },
+
+  // async sessionApi(loginDetails){
+
+  // }
 };

@@ -4,7 +4,7 @@ const helloController = require("./controllers/helloController");
 const employeeController = require("./controllers/employeeController");
 
 router.get("/hello", helloController.sendHello);
-router.get("/emp", helloController.sendDB);
+// router.get("/session", employeeController.sessionApi);
 router.post("/createEmp", employeeController.createEmployeeapi);
 router.post("/auth", employeeController.empAuthapi);
 

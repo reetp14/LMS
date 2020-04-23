@@ -41,6 +41,8 @@ const useStyle = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyle();
+  var id = sessionStorage.getItem("id");
+  console.log(id);
 
   const [signDetails, setSignDetails] = useState({
     firstName: "",
