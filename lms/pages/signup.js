@@ -8,6 +8,7 @@ import { Paper, Button } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AlertDialog from "../components/alertDialog";
 const useStyle = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
@@ -48,6 +49,11 @@ export default function SignUp() {
     password: "",
   });
 
+  const [alertToggle, setAlertToggle] = useState({
+    state: false,
+    message: "",
+  });
+
   function handleChange(event) {
     console.log(event.target.name);
     const target = event.target;
@@ -73,6 +79,15 @@ export default function SignUp() {
       email: "",
       password: "",
     });
+    setAlertToggle({
+      state: true,
+      message: "SignUp sucessful! Please go back to login page.",
+    });
+  }
+
+  function handleClose() {
+    setAlertToggle({ ...alertToggle, state: false, message: "" });
+    console.log(alertToggle);
   }
 
   async function signReq(url = "", payload) {
@@ -170,6 +185,11 @@ export default function SignUp() {
           >
             Next
           </Button>
+          <AlertDialog
+            open={alertToggle.state}
+            message={alertToggle.message}
+            closeAlert={handleClose}
+          ></AlertDialog>
         </Paper>
       </CssBaseline>
     </div>
