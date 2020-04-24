@@ -33,6 +33,7 @@ module.exports = {
         return {
           auth: true,
           eID: uid.id,
+          eName: uid.firstName,
         };
       } else {
         console.log(uid);

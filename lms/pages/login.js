@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -42,6 +43,7 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyle();
+  const router = useRouter();
 
   const [loginDetails, setLoginDetails] = useState({
     emailId: "",
@@ -79,7 +81,7 @@ export default function Login() {
       console.log("sucess");
       sessionStorage.setItem("id", body.eID);
       console.log("id is", sessionStorage.getItem("id"));
-      //   router.push("/dashboard");
+      router.push("/dashboard");
     } else {
       setAlertToggle({
         state: true,

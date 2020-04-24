@@ -20,7 +20,8 @@ module.exports = {
       const auth = await employeeService.empAuth(req.body);
       return res.status(200).json(auth);
     } catch (error) {
-      return res.status(400).json("auth failed");
+      console.log(error);
+      return res.status(400).json(error);
     }
   },
 };
