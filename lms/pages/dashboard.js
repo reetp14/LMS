@@ -95,7 +95,25 @@ const useStyle = makeStyles((theme) => ({
 }));
 var passKey;
 export default function App() {
-  const leaveRecs = useEffect(await);
+  var e_id = { eId: 1 };
+  useEffect(() => {
+    const fetchData = async () => {
+      const results = await fetch("http://localhost:80/app/reqlvrec", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+
+        body: JSON.stringify(e_id),
+      });
+      var body = await results.json();
+      console.log(body);
+    };
+    fetchData();
+  }, []);
+
   const classes = useStyle();
   //   var id = sessionStorage.getItem("id");
   const inputLabel = React.useRef(null);
