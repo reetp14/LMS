@@ -14,7 +14,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import Notes from "../components/leaveRecord";
+import LeaveNote from "../components/leaveRecord";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, TextField } from "@material-ui/core";
@@ -95,6 +95,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 var passKey;
 export default function App() {
+  const [leaveRecs, setLeaveRecs] = useState({ leaveRecs: [] });
+  const [reRender, setReRender] = useState(true);
   var e_id = { eId: 1 };
   useEffect(() => {
     const fetchData = async () => {
@@ -109,13 +111,18 @@ export default function App() {
         body: JSON.stringify(e_id),
       });
       var body = await results.json();
-      console.log(body);
+      setLeaveRecs(body);
+      //   console.log(leaveRecs);
+      //   console.log(body);
     };
     fetchData();
-  }, []);
+  }, [reRender]);
+
+  leaveRecs.leaveRecs.map((rec) => console.log(rec));
 
   const classes = useStyle();
   //   var id = sessionStorage.getItem("id");
+
   const inputLabel = React.useRef(null);
   const [formData, setFormData] = useState({
     start_date: "",
@@ -169,6 +176,7 @@ export default function App() {
 
     await leaveReq("http://localhost:80/app/applylv", payload);
     console.log(payload);
+    setReRender(!reRender);
 
     setEditBox({ ...editBox, open: false });
   }
@@ -205,6 +213,7 @@ export default function App() {
           Apply Leave
         </Button>
       </AppBar>
+      <LeaveNote rec={leaveRecs.leaveRecs}></LeaveNote>
       <Dialog open={editBox.open} maxWidth="xl">
         <DialogTitle id="simple-dialog-title">Apply your leaves!</DialogTitle>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

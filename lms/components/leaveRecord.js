@@ -4,52 +4,45 @@ import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 
 export default function note(props) {
-  function handleDel(key) {
-    props.delete(key);
-  }
-  function handleEdit(key, text) {
-    props.edit(key, text);
-  }
-  function addLabel(key) {
-    props.handleLabel(key);
-  }
+  // function handleDel(key) {
+  //   props.delete(key);
+  // }
 
-  var noteEntries = props.entries;
+  var noteEntries = props.rec;
+  console.log(noteEntries);
   var noteItems = noteEntries.map(createNote);
 
-  function createNote(note) {
+  function createNote(rec) {
     return (
-      <Card id={note.key} className={props.cardstyle}>
+      <Card id={rec.id} className={props.cardstyle}>
         <Typography variant="h5" style={{ margin: "10px" }}>
-          {note.text}
+          {rec.start_date} <br />
+          {rec.end_date}
+          <br />
+          {rec.e_id}
+          <br />
+          {rec.l_id}
+          <br />
         </Typography>
         <br />
-        Label: {note.label.join()}
+
         <div className={props.buttonWrapper}>
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
-            onClick={() => addLabel(note.key)}
-            style={{ fontSize: "6px", margin: "10px" }}
-          >
-            add label
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleEdit(note.key, note.text)}
+            onClick={() => handleEdit(rec.key, no.text)}
             style={{ fontSize: "6px", margin: "10px" }}
           >
             edit
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
             variant="contained"
             color="secondary"
-            onClick={() => handleDel(note.key)}
+            onClick={() => handleDel(rec.key)}
             style={{ fontSize: "6px", margin: "10px" }}
           >
             delete
-          </Button>
+          </Button> */}
         </div>
       </Card>
     );
