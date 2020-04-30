@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "date-fns";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
@@ -65,10 +65,7 @@ const useStyle = makeStyles((theme) => ({
     // justifyContent: "space-around",
     marginTop: 30,
   },
-  textfield: {
-    margin: "10px",
-    padding: "10px",
-  },
+
   filterwrap: {
     display: "flex",
     margin: "15px",
@@ -98,6 +95,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 var passKey;
 export default function App() {
+  const leaveRecs = useEffect(await);
   const classes = useStyle();
   //   var id = sessionStorage.getItem("id");
   const inputLabel = React.useRef(null);

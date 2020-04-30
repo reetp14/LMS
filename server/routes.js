@@ -9,5 +9,6 @@ router.post("/createEmp", employeeController.createEmployeeapi);
 router.post("/auth", employeeController.empAuthapi);
 router.post("/applylv", leaveController.createLeaveRecApi);
 router.post("/deletelv", leaveController.delLeaveRecApi);
+router.post("/reqlvrec", leaveController.reqLeaveRecsApi);
 
 module.exports = router;

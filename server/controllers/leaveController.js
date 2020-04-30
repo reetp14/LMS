@@ -2,6 +2,15 @@ const logger = require("tracer").colorConsole();
 const leaveService = require("../services/leaveService");
 
 module.exports = {
+  async reqLeaveRecsApi(req, res) {
+    try {
+      console.log(req.body);
+      const leaveRecs = await leaveService.fetchLeaveRec(req.body);
+      return res.status(200).json({ leaveRecs });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  },
   async createLeaveRecApi(req, res) {
     try {
       console.log(req.body);
