@@ -23,6 +23,7 @@ module.exports = {
 
   async delLeaveRecApi(req, res) {
     try {
+      console.log(req.body);
       const delRecord = await leaveService.delLeaveRec(req.body);
       return res.json({ delRecord });
     } catch (error) {

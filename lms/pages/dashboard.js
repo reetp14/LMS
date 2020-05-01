@@ -91,7 +91,7 @@ const useStyle = makeStyles((theme) => ({
     minWidth: 120,
   },
 }));
-var passKey;
+
 export default function App() {
   const [leaveRecs, setLeaveRecs] = useState({ leaveRecs: [] });
   const [reRender, setReRender] = useState(true);
@@ -196,6 +196,22 @@ export default function App() {
     return body;
   }
 
+  async function onDelete(key) {
+    var payload = { id: key };
+    console.log(payload);
+    const response = await fetch("http://localhost:80/app/deletelv", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+
+      body: JSON.stringify(payload),
+    });
+    setReRender(!reRender);
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -211,7 +227,11 @@ export default function App() {
           Apply Leave
         </Button>
       </AppBar>
-      <LeaveNote rec={leaveRecs.leaveRecs} cardstyle={classes.card}></LeaveNote>
+      <LeaveNote
+        rec={leaveRecs.leaveRecs}
+        cardstyle={classes.card}
+        delete={onDelete}
+      ></LeaveNote>
       <Dialog open={editBox.open} maxWidth="xl">
         <DialogTitle id="simple-dialog-title">Apply your leaves!</DialogTitle>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>

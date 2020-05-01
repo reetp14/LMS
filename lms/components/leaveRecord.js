@@ -5,9 +5,10 @@ import { Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 export default function note(props) {
-  // function handleDel(key) {
-  //   props.delete(key);
-  // }
+  function handleDel(key) {
+    console.log(key);
+    props.delete(key);
+  }
 
   var noteEntries = props.rec;
   console.log(noteEntries);
@@ -90,23 +91,23 @@ export default function note(props) {
         </Grid>
         <br />
 
-        <div className={props.buttonWrapper}>
-          {/* <Button
-            variant="contained"
-            color="primary"
-            onClick={() => handleEdit(rec.key, no.text)}
-            style={{ fontSize: "6px", marginLeft:"25px" }}
-          >
-            edit
-          </Button> */}
-          {/* <Button
+        <div
+          style={{
+            justifyContent: "flex-end",
+            display: "flex",
+            alignItems: "flex-end",
+            padding: "8px",
+            width: "100%",
+          }}
+        >
+          <Button
             variant="contained"
             color="secondary"
-            onClick={() => handleDel(rec.key)}
-            style={{ fontSize: "6px", margin: "10px" }}
+            onClick={() => handleDel(rec.id)}
+            style={{ margin: "10px" }}
           >
             delete
-          </Button> */}
+          </Button>
         </div>
       </Card>
     );
