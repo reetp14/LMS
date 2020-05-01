@@ -51,12 +51,10 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-evenly",
-    // minHeight: "40vh",
-    // minWidth: "100%",
     margin: "15px",
-
     position: "relative",
-    left: "40px",
+    left: "10px",
+    boxShadow: "-2px 5px 8px 0px rgba(0,0,0,0.63)",
   },
   cardbutton: {
     display: "flex",
@@ -213,7 +211,7 @@ export default function App() {
           Apply Leave
         </Button>
       </AppBar>
-      <LeaveNote rec={leaveRecs.leaveRecs}></LeaveNote>
+      <LeaveNote rec={leaveRecs.leaveRecs} cardstyle={classes.card}></LeaveNote>
       <Dialog open={editBox.open} maxWidth="xl">
         <DialogTitle id="simple-dialog-title">Apply your leaves!</DialogTitle>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
