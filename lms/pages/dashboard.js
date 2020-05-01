@@ -51,10 +51,10 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-evenly",
-    margin: "15px",
+    margin: "25px",
     position: "relative",
     left: "10px",
-    boxShadow: "-2px 5px 8px 0px rgba(0,0,0,0.63)",
+    boxShadow: "-11px -2px 25px -7px rgba(0,0,0,0.63)",
   },
   cardbutton: {
     display: "flex",

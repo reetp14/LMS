@@ -2,6 +2,7 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 
 export default function note(props) {
   // function handleDel(key) {
@@ -13,17 +14,80 @@ export default function note(props) {
   var noteItems = noteEntries.map(createNote);
 
   function createNote(rec) {
+    console.log(new Date(rec.end_date) - new Date(rec.start_date));
     return (
       <Card id={rec.id} className={props.cardstyle}>
-        <Typography variant="h5" style={{ margin: "10px" }}>
-          {rec.start_date} <br />
-          {rec.end_date}
-          <br />
-          {rec.e_id}
-          <br />
-          {rec.l_id}
-          <br />
-        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={3}>
+            <Typography
+              variant="subtitle1"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              Leave Start Date
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="subtitle1"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              Leave End Date
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="subtitle1"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              Duration
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="subtitle1"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              Leave Type
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={3}>
+            <Typography
+              variant="h6"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              {rec.start_date}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="h6"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              {rec.end_date}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="h6"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              {1 +
+                (new Date(rec.end_date) - new Date(rec.start_date)) /
+                  (60 * 60 * 24 * 1000)}{" "}
+              {" days"}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography
+              variant="h6"
+              style={{ marginLeft: "25px", marginTop: "8px" }}
+            >
+              {rec.l_id}
+            </Typography>
+          </Grid>
+        </Grid>
         <br />
 
         <div className={props.buttonWrapper}>
@@ -31,7 +95,7 @@ export default function note(props) {
             variant="contained"
             color="primary"
             onClick={() => handleEdit(rec.key, no.text)}
-            style={{ fontSize: "6px", margin: "10px" }}
+            style={{ fontSize: "6px", marginLeft:"25px" }}
           >
             edit
           </Button> */}
