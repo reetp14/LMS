@@ -54,7 +54,7 @@ const useStyle = makeStyles((theme) => ({
     margin: "25px",
     position: "relative",
     left: "10px",
-    boxShadow: "-11px -2px 25px -7px rgba(0,0,0,0.63)",
+    boxShadow: "0px 1px 15px 6px rgba(176,174,170,1)",
   },
   cardbutton: {
     display: "flex",

@@ -16,6 +16,20 @@ export default function note(props) {
 
   function createNote(rec) {
     console.log(new Date(rec.end_date) - new Date(rec.start_date));
+    var lt;
+    function leaveType() {
+      if (rec.l_id == "1") {
+        lt = "Casual Leave";
+      }
+      if (rec.l_id == "2") {
+        lt == "EBL Leave";
+      }
+      if (rec.l_id == "3") {
+        lt = "Other Leave";
+      }
+      console.log(lt);
+      return lt;
+    }
     return (
       <Card id={rec.id} className={props.cardstyle}>
         <Grid container spacing={3}>
@@ -85,7 +99,7 @@ export default function note(props) {
               variant="h6"
               style={{ marginLeft: "25px", marginTop: "8px" }}
             >
-              {rec.l_id}
+              {leaveType()}
             </Typography>
           </Grid>
         </Grid>
