@@ -95,6 +95,7 @@ const useStyle = makeStyles((theme) => ({
 export default function App() {
   const [leaveRecs, setLeaveRecs] = useState({ leaveRecs: [] });
   const [reRender, setReRender] = useState(true);
+  const [editKey, setEditKey] = useState(null);
   var e_id = { eId: 1 };
   useEffect(() => {
     const fetchData = async () => {
@@ -114,8 +115,6 @@ export default function App() {
     fetchData();
   }, [reRender]);
 
-  leaveRecs.leaveRecs.map((rec) => console.log(rec));
-
   const classes = useStyle();
 
   const inputLabel = React.useRef(null);
@@ -133,6 +132,13 @@ export default function App() {
     display: "none",
     value: "",
   });
+  const [editBox2, setEditBox2] = useState({
+    open: false,
+    openEdit: false,
+    openEditLabel: false,
+    display: "none",
+    value: "",
+  });
 
   const [selectedDate, setSelectedDate] = React.useState({
     startDate: new Date("2019-08-18T21:11:54"),
@@ -141,18 +147,14 @@ export default function App() {
 
   const handleStartDateChange = (date) => {
     setSelectedDate({ ...selectedDate, startDate: date });
-    console.log(selectedDate);
   };
   const handleEndDateChange = (date) => {
-    console.log(selectedDate);
     setSelectedDate({ ...selectedDate, endDate: date });
-    console.log(selectedDate);
   };
 
   const [leaveType, setLeaveType] = React.useState("");
   const handleLeaveChange = (event) => {
     setLeaveType(event.target.value);
-    console.log(leaveType);
   };
 
   function openDialog(e) {
@@ -170,7 +172,7 @@ export default function App() {
     };
 
     await leaveReq("http://localhost:80/app/applylv", payload);
-    console.log(payload);
+
     setReRender(!reRender);
 
     setEditBox({ ...editBox, open: false });
@@ -209,6 +211,39 @@ export default function App() {
     setReRender(!reRender);
   }
 
+  async function onEdit(key) {
+    console.log(key);
+    setEditKey(key);
+
+    if (!editBox2.open) {
+      setEditBox2({ ...editBox2, open: true });
+    }
+  }
+
+  async function handleEdit() {
+    var payload = {
+      id: editKey,
+      start_date: selectedDate.startDate,
+      end_date: selectedDate.endDate,
+      l_id: leaveType,
+      e_id: 1,
+    };
+    console.log(payload, "payload");
+
+    const response = await fetch("http://localhost:80/app/editlvrec", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+
+      body: JSON.stringify(payload),
+    });
+    setReRender(!reRender);
+    setEditBox2(!editBox2);
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -228,6 +263,7 @@ export default function App() {
         rec={leaveRecs.leaveRecs}
         cardstyle={classes.card}
         delete={onDelete}
+        edit={onEdit}
       ></LeaveNote>
       <Dialog open={editBox.open} maxWidth="xl">
         <DialogTitle id="simple-dialog-title">Apply your leaves!</DialogTitle>
@@ -282,6 +318,69 @@ export default function App() {
           variant="contained"
           color="primary"
           onClick={handleApply}
+          style={{
+            display: "flex",
+            position: "relative",
+            width: "50px",
+            margin: "10px",
+          }}
+        >
+          Apply
+        </Button>
+      </Dialog>
+      <Dialog open={editBox2.open} maxWidth="xl">
+        <DialogTitle id="simple-dialog-title2">Edit your leaves!</DialogTitle>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <div className={classes.applybox}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="startDate"
+              name="startDate"
+              label="Select Leave Start Date"
+              value={selectedDate.startDate}
+              onChange={handleStartDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="endDate"
+              name="endDate"
+              label="Select Leave End Date"
+              value={selectedDate.endDate}
+              onChange={handleEndDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel ref={inputLabel} htmlFor="outlined-age-native-simple">
+                Leave Type
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={leaveType}
+                onChange={handleLeaveChange}
+              >
+                <MenuItem value={1}>Casual Leaves</MenuItem>
+                <MenuItem value={2}>EBL</MenuItem>
+                <MenuItem value={3}>Others</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </MuiPickersUtilsProvider>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleEdit}
           style={{
             display: "flex",
             position: "relative",

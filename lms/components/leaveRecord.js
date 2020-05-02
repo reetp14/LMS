@@ -10,24 +10,27 @@ export default function note(props) {
     props.delete(key);
   }
 
+  function handleEdit(key) {
+    props.edit(key);
+  }
+
   var noteEntries = props.rec;
-  console.log(noteEntries);
+
   var noteItems = noteEntries.map(createNote);
 
   function createNote(rec) {
-    console.log(new Date(rec.end_date) - new Date(rec.start_date));
     var lt;
     function leaveType() {
       if (rec.l_id == "1") {
         lt = "Casual Leave";
       }
       if (rec.l_id == "2") {
-        lt == "EBL Leave";
+        lt = "EBL Leave";
       }
       if (rec.l_id == "3") {
         lt = "Other Leave";
       }
-      console.log(lt);
+
       return lt;
     }
     return (
@@ -121,6 +124,14 @@ export default function note(props) {
             style={{ margin: "10px" }}
           >
             delete
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => handleEdit(rec.id)}
+            style={{ margin: "10px" }}
+          >
+            Edit
           </Button>
         </div>
       </Card>
