@@ -110,8 +110,6 @@ export default function App() {
       });
       var body = await results.json();
       setLeaveRecs(body);
-      //   console.log(leaveRecs);
-      //   console.log(body);
     };
     fetchData();
   }, [reRender]);
@@ -119,7 +117,6 @@ export default function App() {
   leaveRecs.leaveRecs.map((rec) => console.log(rec));
 
   const classes = useStyle();
-  //   var id = sessionStorage.getItem("id");
 
   const inputLabel = React.useRef(null);
   const [formData, setFormData] = useState({

@@ -36,4 +36,21 @@ module.exports = {
       return error;
     }
   },
+
+  async editLeaveRec(leaveDetails) {
+    try {
+      var editRec = await leaveRec.findOne({
+        where: { id: leaveDetails.id },
+      });
+      editRec.start_date = leaveDetails.start_date;
+      editRec.end_date = leaveDetails.end_date;
+      editRec.l_id = leaveDetails.l_id;
+      await editRec.save();
+      await editRec.reload();
+      console.log(editRec);
+      return editRec;
+    } catch (error) {
+      return error;
+    }
+  },
 };

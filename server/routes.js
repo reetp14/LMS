@@ -10,5 +10,6 @@ router.post("/auth", employeeController.empAuthapi);
 router.post("/applylv", leaveController.createLeaveRecApi);
 router.post("/deletelv", leaveController.delLeaveRecApi);
 router.post("/reqlvrec", leaveController.reqLeaveRecsApi);
+router.post("/editlvrec", leaveController.editLeaveRecApi);
 
 module.exports = router;

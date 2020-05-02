@@ -30,4 +30,14 @@ module.exports = {
       return res.status(500).json({ error: error.message });
     }
   },
+
+  async editLeaveRecApi(req, res) {
+    try {
+      console.log(req.body);
+      const editRec = await leaveService.editLeaveRec(req.body);
+      return res.json({ editRec });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  },
 };
